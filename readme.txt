@@ -17,7 +17,4 @@ OASIS pulls from the open source tools:
 -Xebium (FitNesse + Selenium)
 -JMeter
 
-For examples of how to use OASIS, please visit the wiki page Youtube videos.
-
-
-To start using Oasis simply run the "run-ant.bat" file.
+For examples of how to use OASIS, please visit the wiki page and Youtube videos.

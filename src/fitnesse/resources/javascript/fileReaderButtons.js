@@ -45,7 +45,7 @@ $(function() {
 	});
 	$('#fileReaderBtnFile').click(function () {
 
-		$.get("?fileRead&select", function( data ) {
+		$.get("?fileReader&select", function( data ) {
 			if (data) {
 				outputText('| set file | ' +  data + ' |\n');
 			}

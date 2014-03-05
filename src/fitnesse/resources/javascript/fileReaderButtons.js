@@ -43,9 +43,9 @@ $(function() {
 	$("#fileCloseText").click(function() {
 		outputText('| close file | text file reader | \n');
 	});
-	$('#fileReaderBtnFile').click(function () {
+	$('#fileReadBtnFile').click(function () {
 
-		$.get("?fileReader&select", function( data ) {
+		$.get("?fileRead&select", function( data ) {
 			if (data) {
 				outputText('| set file | ' +  data + ' |\n');
 			}

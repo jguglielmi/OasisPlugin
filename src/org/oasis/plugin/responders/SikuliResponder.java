@@ -204,6 +204,9 @@ protected Response doMakeResponse(FitNesseContext context, Request request, bool
  else if (request.hasInput("version")) {
 	 getVersion(response);
  }
+ else if (request.hasInput("shutdown")) {
+	 System.exit(0);
+ }
  else {
 	 response.setContent("not valid input var");
  }

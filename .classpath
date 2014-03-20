@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="lib/synthuse-1.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/fitnesse-standalone.jar" sourcepath="/fitnesse"/>
 	<classpathentry kind="lib" path="lib/sikuli-java.jar"/>
+	<classpathentry kind="src" path="/fitnesse"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

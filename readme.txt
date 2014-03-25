@@ -1,10 +1,10 @@
 OasisPlugin
 
-This is a plugin for Fitnesse to allow extra automation functionality directly in the wiki edit page.  Read below for more information about OASIS.
+This is a plugin for Fitnesse to allow extra automation functionality directly in the wiki edit page. Read below for more information about OASIS.
 
 
 OASIS
-(Open Agile Source Integrated Suite)
+(Open Automated Source Integrated Suite)
 
 OASIS is an open source, Java based, and platform independent FitNesse plugin that allows testers and developers the ability to automate tests using a variety of different tools quickly and with ease. Built around the Xebium framework, OASIS seeks to increase the capabilities of testing by adding in thick client and load testing support.
 
@@ -17,4 +17,15 @@ OASIS pulls from the open source tools:
 -Xebium (FitNesse + Selenium)
 -JMeter
 
-For examples of how to use OASIS, please visit the wiki page and Youtube videos.
+run "mvn install" to generate the file with dependencies within the target directory.
+
+For examples of how to use OASIS, please visit the wiki page and Youtube videos. The plugin offers support for the FitNesse Maven Classpath plugin.
+
+To find out how to set it up further, follow the instructions here:
+
+https://github.com/amolenaar/fitnesse-maven-classpath
+
+or
+
+view the live examples at
+https://github.com/jguglielmi/OASIS-Maven

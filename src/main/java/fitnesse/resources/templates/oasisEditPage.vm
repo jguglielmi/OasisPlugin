@@ -1,0 +1,443 @@
+<script src="/files/fitnesse/javascript/textinputs_jquery.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/SpreadsheetTranslator.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/WikiFormatter.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/TemplateInserter.js" type="text/javascript"></script>
+
+<form method="post" action="$resource" name="f">
+#if($!editTime)
+ <input type="hidden" name="editTime" value="$editTime"/>
+ <input type="hidden" name="ticketId" value="$ticketId"/>
+#end
+#if($!redirect)
+ <input type="hidden" name="redirect" value="$redirect"/>
+#end
+#if($!isNewPage)
+ <input type="hidden" name="responder" value="addChild"/>
+ <fieldset>
+  <label for="pagename">Page name:</label><input type="text" id="pagename" name="pageName" value="" class="wikiword" />
+ </fieldset>
+ #if( $!pageType )
+ <input type="hidden" name="pageType" value="$pageType"/>
+ #else
+ <fieldset id="pagetypes">
+  #foreach( $pageType in $pageTypes )
+  <label for="pageType_$pageType"><input type="radio" name="pageType" value="$pageType" id="pageType_$pageType"/> $pageType</label>
+  #end
+  <label for="pageType_Default"><input type="radio" name="pageType" value="Default" id="pageType_Default" checked="checked" /> Default</label>
+ </fieldset>
+ #end
+#else
+ <input type="hidden" name="responder" value="saveData"/>
+#end
+ <fieldset>
+  <label for="helptext">Help text:</label><input type="text" id="helptext" name="helpText" value="$!helpText" />
+ </fieldset>
+ <fieldset>
+  <label for="suites">Tags:</label><input type="text" id="suites" title="Separate tags by a comma" name="suites" value="$!suites" />
+ </fieldset>
+
+ <div id="backingData" class="hidden">
+  <select id="templateMap">
+   <option value=""></option>
+   #foreach ($templateEntry in $templateMap.entrySet())
+   <option value="$templateEntry.key">$templateEntry.value</option>
+   #end
+  </select>
+
+ </div>
+ 
+<link rel="stylesheet" href="/files/fitnesse/css/smoothness/jquery-ui-1.10.3.min.css" />
+<script src="/files/fitnesse/javascript/jquery-ui-1.10.3.min.js"></script>
+<style>
+
+.oasisEditPage fieldset {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.oasisEditPage .textarea-toolbar,
+.oasisEditPage .wysiwyg-toolbar {
+    margin-left: 40px;
+}
+
+.oasisEditPage textarea#pageContent {
+    border-left: none;
+    border-right: none;
+}
+.oasisEditPage iframe.wysiwyg {
+    border-left: none;
+    border-right: none;
+}
+.oasisEditPage #pagename,
+.oasisEditPage #helptext {
+    margin-bottom: 0.5em;
+    .input-xxlarge;
+}
+
+/** Edit page **/
+.oasisEditPage {
+    overflow: hidden;
+}
+
+.oasisEditPage article {
+    margin: 0;
+}
+
+.oasisEditPage #editor {
+    margin: 8px 0 0 0;
+}
+
+.oasisEditPage #editor label {
+	width: auto;
+}
+.oasisEditPage .edit_options label {
+	width: auto;
+}
+
+.oasisEditPage #pagename,
+.oasisEditPage #helptext {
+	width: 55em;
+	margin-bottom: 0.5em;
+}
+.oasisEditPage #pagetypes {
+	margin: 0 0 0.5em 7em;
+}
+.oasisEditPage #pagetypes label {
+	display: inline;
+	float: none;
+}
+.oasisEditPage textarea, .oasisEditPage iframe {
+	display: block;
+	width: 100%;
+	height: 32em;
+    font-family: monospace;
+}
+.oasisEditPage textarea.no_wrap {
+    overflow: scroll;
+}
+.oasisEditPage .edit_options {
+	float: right;
+}
+.oasisEditPage #save_buttons {
+    bottom: 0;
+    margin-top: 16px;
+    margin-bottom: 7px; /* buttons have 9px bottom padding */
+    position: fixed;
+}
+
+#sikuliToolbar {
+	display: inline-block; 
+	padding: 4px; 
+	background-color: #FAFAFA;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+    background-repeat: repeat-x;
+}
+/* support: IE7 */
+*+html #sikuliToolbar {
+display: inline;
+}
+.ui-menu { 
+	position: absolute; 
+	width: 200px;
+    font-size: 12px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ui-button {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F5F5F5;
+    background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+    border-image: none;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 20px;
+    margin: 0 !important; 
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+}
+</style>
+
+<div id="sikuliButtons" >
+  <label for="sikuliToolbar">Tools:</label>
+  <div id="sikuliToolbar" class="ui-widget-header ui-corner-all">
+    <div style="display: inline;">
+      <button id="sikuliBtnTable">Table</button><button id="sikuliSelectTable">Select</button>
+    </div>
+    <div style="display: inline;">
+      <button id="sikuliBtnClick">Click</button><button id="sikuliSelectClick">Select</button>
+    </div>
+    <button id="sikuliBtnWait">Wait</button>
+    <button id="sikuliBtnType">Type</button>
+    <button id="sikuliMnuKeys">Keys</button>
+    <button id="sikuliMnuAdvanced">Advanced</button>
+    <div style="display: inline;">
+      <button id="sikuliBtnCapture">Capture</button><button id="sikuliSelectCapture">Select</button>
+    </div>
+    <button id="toolBtnSynthuse">Synthuse</button>
+    <button id="fileReaderBtnFile">Select File</button><button id="fileSelectTable">Select</button>
+  </div>
+      </div>
+  </div>
+  
+  
+  <br />
+  <div style="white-space:nowrap">
+    <label for="sikuliPath">Sikuli Script Path: </label><label for="sikuliPath" id="sikuliPath" ></label>
+  </div>
+  
+  <ul id="menuFiles" style="display: none;">
+    <li><a id="fileSheet" href="#">Set Sheet</a></li>
+    <li><a id="fileCell" href="#">Get Cell</a></li>
+    <li><a id="fileRow" href="#">Get Sheet Row</a></li>
+    <li><a id="fileWholeExcel" href="#">Get Whole Excel</a></li>
+    <li>-</li>
+    <li><a id="fileNextLine" href="#">Read Next Line</a></li>
+    <li><a id="fileEndOfFile" href="#">Read to End of File</a></li>
+    <li><a id="fileGetTextArray" href="#">Get Text Array</a></li>
+    <li><a id="fileCloseText" href="#">Close Text Reader</a></li>
+  </ul>
+  <ul id="menuTables" style="display: none;">
+    <li><a id="sikuliPresetVars" href="#">Preset Variables</a></li>
+    <li><a id="sikuliImport" href="#">Import Sikuli</a></li>
+    <li><a id="sikuliLibrary" href="#">Library Sikuli</a></li>
+    <li><a id="sikuliTable" href="#">Sikuli Table Header</a></li>
+    <li><a id="sikuliSlidesTable" href="#">Sikuli Slides Table Header</a></li>
+    <li>-</li>
+    <li><a id="sikuliImportSelen" href="#">Import Selenium</a></li>
+    <li><a id="sikuliSelenTable" href="#">Selenium Table Header</a></li>
+     <li>-</li>
+     <li><a id="fileImport" href="#">Import File</a></li>
+    <li><a id="fileTableExcel" href="#">Excel Table Header</a></li>
+        <li><a id="fileTableText" href="#">Text Table Header</a></li>
+  </ul>
+  <ul id="menuClicks" style="display: none;">
+    <li><a id="sikuliClick" href="#">Click</a></li>
+    <li><a id="sikuliWaitClick" href="#">WaitClick</a></li>
+    <li><a id="sikuliRightClick" href="#">RightClick</a></li>
+    <li><a id="sikuliDoubleClick" href="#">DoubleClick</a></li>
+    <li><a id="sikuliHover" href="#">Hover</a></li>
+    <li><a id="sikuliDragDrop" href="#">DragDrop</a></li>
+  </ul>
+  <ul id="menuAdjustments" style="display: none;">
+  </ul>
+  <ul id="menuAdvanced" style="display: none;">
+    <li><a id="sikuliComment" href="#">Comment Selected Text</a></li>
+    <li><a id="sikuliUncomment" href="#">Uncomment Selected Text</a></li>
+    <li>-</li>
+    <li><a id="sikuliDelay" href="#">Delay</a></li>
+    <li><a id="sikuliWaitTime" href="#">Set Wait Time</a></li>
+    <li><a id="sikuliSensitivity" href="#">Set Sensitivity Level</a></li>
+    <li><a id="sikuliOffset" href="#">Set Offset</a></li>
+    <li>-</li>
+    <li><a id="sikuliDisplayText" href="#">Display Text</a></li>
+    <li><a id="sikuliTakeScreenCap" href="#">Take Screen Capture</a></li>
+    <li><a id="sikuliHighlight" href="#">Highlight Image</a></li>
+    <li><a id="sikuliWhileHiddenClick" href="#">While Hidden Click</a></li>
+    <li><a id="sikuliWhileHiddenKeyPress" href="#">While Hidden KeyPress</a></li>
+    <li><a id="sikuliDragDrop" href="#">Drag Drop</a></li>
+    <li><a id="sikuliClickOr" href="#">Click Image1 or Image2</a></li>
+    <li><a id="sikuliWaitOr" href="#">Wait Image1 or Image2</a></li>
+    <li>-</li>
+    <li><a id="sikuliEncryptStr" href="#">Encrypt String</a></li>
+  </ul>
+  <ul id="menuCaptureList" style="display: none; max-height: 400px; overflow-y: auto; overflow-x: hidden">
+  </ul>
+  <ul id="menuKeys" style="display: none;">
+    <li><a id="sikuliKey" href="#">ENTER</a></li>
+    <li><a id="sikuliKey" href="#">SPACE</a></li>
+    <li><a id="sikuliKey" href="#">SHIFT</a></li>
+    <li><a id="sikuliKey" href="#">CTRL</a></li>
+    <li><a id="sikuliKey" href="#">ALT</a></li>
+    <li><a id="sikuliKey" href="#">TAB</a></li>
+    <li><a id="sikuliKey" href="#">DELETE</a></li>
+    <li><a id="sikuliKey" href="#">BACKSPACE</a></li>
+    <li><a id="sikuliKey" href="#">ESC</a></li>
+    <li><a id="sikuliKey" href="#">HOME</a></li>
+    <li><a id="sikuliKey" href="#">END</a></li>
+    <li><a id="sikuliKey" href="#">INSERT</a></li>
+    <li><a id="sikuliKey" href="#">PAGE_UP</a></li>
+    <li><a id="sikuliKey" href="#">PAGE_DOWN</a></li>
+    <li><a id="sikuliKey" href="#">PRINTSCREEN</a></li>
+    <li><a id="sikuliKey" href="#">PAUSE</a></li>
+    <li><a id="sikuliHeaderKey" href="#">ArrowKeys</a>
+		<ul>
+			<li><a id="sikuliKey" href="#">UP</a></li>
+			<li><a id="sikuliKey" href="#">DOWN</a></li>
+			<li><a id="sikuliKey" href="#">LEFT</a></li>
+			<li><a id="sikuliKey" href="#">RIGHT</a></li>
+		</ul>
+	</li>
+	<li><a id="sikuliHeaderKey" href="#">FunctionKeys</a>
+		<ul>
+			<li><a id="sikuliKey" href="#">F1</a></li>
+			<li><a id="sikuliKey" href="#">F2</a></li>
+			<li><a id="sikuliKey" href="#">F3</a></li>
+			<li><a id="sikuliKey" href="#">F4</a></li>
+			<li><a id="sikuliKey" href="#">F5</a></li>
+			<li><a id="sikuliKey" href="#">F6</a></li>
+			<li><a id="sikuliKey" href="#">F7</a></li>
+			<li><a id="sikuliKey" href="#">F8</a></li>
+			<li><a id="sikuliKey" href="#">F9</a></li>
+			<li><a id="sikuliKey" href="#">F10</a></li>
+			<li><a id="sikuliKey" href="#">F11</a></li>
+			<li><a id="sikuliKey" href="#">F12</a></li>
+		</ul>
+	</li>
+    <li><a id="sikuliHeaderKey" href="#">Letters</a>
+		<ul>
+			<li><a id="sikuliKey" href="#">A</a></li>
+			<li><a id="sikuliKey" href="#">B</a></li>
+			<li><a id="sikuliKey" href="#">C</a></li>
+			<li><a id="sikuliKey" href="#">D</a></li>
+			<li><a id="sikuliKey" href="#">E</a></li>
+			<li><a id="sikuliKey" href="#">F</a></li>
+			<li><a id="sikuliKey" href="#">G</a></li>
+			<li><a id="sikuliKey" href="#">H</a></li>
+			<li><a id="sikuliKey" href="#">I</a></li>
+			<li><a id="sikuliKey" href="#">J</a></li>
+			<li><a id="sikuliKey" href="#">K</a></li>
+			<li><a id="sikuliKey" href="#">L</a></li>
+			<li><a id="sikuliKey" href="#">M</a></li>
+			<li><a id="sikuliKey" href="#">N</a></li>
+			<li><a id="sikuliKey" href="#">O</a></li>
+			<li><a id="sikuliKey" href="#">P</a></li>
+			<li><a id="sikuliKey" href="#">Q</a></li>
+			<li><a id="sikuliKey" href="#">R</a></li>
+			<li><a id="sikuliKey" href="#">S</a></li>
+			<li><a id="sikuliKey" href="#">T</a></li>
+			<li><a id="sikuliKey" href="#">U</a></li>
+			<li><a id="sikuliKey" href="#">V</a></li>
+			<li><a id="sikuliKey" href="#">W</a></li>
+			<li><a id="sikuliKey" href="#">X</a></li>
+			<li><a id="sikuliKey" href="#">Y</a></li>
+			<li><a id="sikuliKey" href="#">Z</a></li>
+		</ul>
+	</li>
+    <li><a id="sikuliHeaderKey" href="#">Numbers</a>
+		<ul>
+			<li><a id="sikuliKey" href="#">NUM0</a></li>
+			<li><a id="sikuliKey" href="#">NUM1</a></li>
+			<li><a id="sikuliKey" href="#">NUM2</a></li>
+			<li><a id="sikuliKey" href="#">NUM3</a></li>
+			<li><a id="sikuliKey" href="#">NUM4</a></li>
+			<li><a id="sikuliKey" href="#">NUM5</a></li>
+			<li><a id="sikuliKey" href="#">NUM6</a></li>
+			<li><a id="sikuliKey" href="#">NUM7</a></li>
+			<li><a id="sikuliKey" href="#">NUM8</a></li>
+			<li><a id="sikuliKey" href="#">NUM9</a></li>
+		</ul>
+	</li>
+    <li><a id="sikuliHeaderKey" href="#">Symbols</a>
+		<ul>
+			<li><a id="sikuliKey" href="#">~</a></li>
+			<li><a id="sikuliKey" href="#">!</a></li>
+			<li><a id="sikuliKey" href="#">@</a></li>
+			<li><a id="sikuliKey" href="#">#</a></li>
+			<li><a id="sikuliKey" href="#">$</a></li>
+			<li><a id="sikuliKey" href="#">%</a></li>
+			<li><a id="sikuliKey" href="#">^</a></li>
+			<li><a id="sikuliKey" href="#">&amp;</a></li>
+			<li><a id="sikuliKey" href="#">*</a></li>
+			<li><a id="sikuliKey" href="#">(</a></li>
+			<li><a id="sikuliKey" href="#">)</a></li>
+			<li><a id="sikuliKey" href="#">-</a></li>
+			<li><a id="sikuliKey" href="#">+</a></li>
+			<li><a id="sikuliKey" href="#">_</a></li>
+			<li><a id="sikuliKey" href="#">/</a></li>
+			<li><a id="sikuliKey" href="#">\</a></li>
+			<li><a id="sikuliKey" href="#">,</a></li>
+			<li><a id="sikuliKey" href="#">.</a></li>
+			<li><a id="sikuliKey" href="#">"</a></li>
+			<li><a id="sikuliKey" href="#">:</a></li>
+			<li><a id="sikuliKey" href="#">;</a></li>
+			<li><a id="sikuliKey" href="#">?</a></li>
+		</ul>
+	</li>
+  </ul>
+</div>
+
+ 
+ <fieldset id="editor">
+  <textarea class="wikitext no_wrap" id="pageContent" name="pageContent" wrap="off">$pageContent</textarea>
+ </fieldset>
+
+ <fieldset id="save_buttons">
+  <input type="submit" name="save" value="Save" tabindex="2" accesskey="s"/>
+  <a class="button" href="#if($!redirect)$redirect#else$resource#end">Cancel</a>
+ </fieldset>
+</form>
+<script src="/files/fitnesse/wysiwyg/wysiwyg.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/jquery.tagsinput.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/sikuliButtons.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/synthuseButtons.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/fileReaderButtons.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function () {
+    
+  var editors = Wysiwyg.initialize();
+  if (editors) {
+    var editor = editors[0];
+
+    // On cancel button:
+    
+    function fieldValues () {
+      return $.map($('#pageContent,#helptext,#suites', document.f), function(e) { return $(e).val(); });
+    }
+    
+    var originalFieldValues = fieldValues();
+    
+    var performingSubmit = false;
+    
+    $(document.f).submit(function () {
+      performingSubmit = true;
+    });
+
+    window.onbeforeunload = function () {
+      if (performingSubmit) {
+        return;
+      }
+
+      if (editor.activeEditor() === "wysiwyg") {
+        editor.loadWikiText();
+      }
+
+      if (fieldValues().join('$$') !== originalFieldValues.join('$$')) {
+        return "The page content has been changed.\nDo you really want to leave this page?";
+      }
+    };
+  }
+
+  var rte = $('#editor iframe');
+  var textarea = $('#editor textarea');
+  //var textarea = $("#pageContent");
+  $(window).resize(function () {
+    var h = $('#save_buttons').position().top;
+    rte.height(h - rte.position().top - 1);
+    //textarea.height(h - textarea.position().top - 1);
+    //$("#pageContent").height( $("#pageContent")[0].scrollHeight );
+    //$("#pageContent").width( $("#pageContent")[0].scrollWidth );
+  }).resize();
+
+  /* Tags */
+  $('#suites').tagsInput();
+
+  #if($!isNewPage)
+    document.f.pageName.focus();
+  #else
+    document.f.pageContent.focus();
+  #end
+
+});
+</script>

@@ -1,7 +1,11 @@
 <ivy-module version="2.0">
-    <info organisation="org.oasis.plugin" module="OasisPlugin"/>
+    <info organisation="org.oasis" module="OasisPlugin"/>
+		<configurations defaultconfmapping="runtime->*,!sources,!javadoc">
+		<conf name="runtime"/>
+		<conf name="test"/>
+	</configurations>
     <dependencies>
-		<dependency org="org.sikuli" name="sikuli-slides-api" rev="1.4.0" conf="*->*,!sources,!javadoc"/>
-		<dependency org="org.fitnesse" name="fitnesse" rev="20140201" conf="*->*,standalone,!sources,!javadoc"/>
+		<dependency org="org.sikuli" name="sikuli-slides-api" rev="1.4.0" conf=""/>
+		<dependency org="org.fitnesse" name="fitnesse" rev="20140201" conf=""/>
     </dependencies>
 </ivy-module>

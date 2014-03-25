@@ -7,7 +7,9 @@ import fitnesse.responders.ResponderFactory;
 import fitnesse.wikitext.parser.SymbolProvider;
 
 public class PluginLoader {
-
+    public void MavenClasspathExtractor() throws PlexusContainerException {
+        plexusContainer = buildPlexusContainer(getClass().getClassLoader(), null);
+       }
     public static void registerResponders(ResponderFactory factory) {
     	//factory.addResponder("custom1", WikiPageResponder.class);
     	//factory.addResponder("custom2", EditResponder.class);

@@ -17,7 +17,9 @@ OASIS pulls from the open source tools:
 -Xebium (FitNesse + Selenium)
 -JMeter
 
-run "mvn install" to generate the file with dependencies within the target directory.
+run "mvn install" to generate the file with dependencies within the target directory and when you're ready to update your Maven project, add it in.
+
+To generate the ivy plugin, run the command "ant resolve dist" from command line in the base directory.
 
 For examples of how to use OASIS, please visit the wiki page and Youtube videos. The plugin offers support for the FitNesse Maven Classpath plugin.
 
@@ -28,4 +30,4 @@ https://github.com/amolenaar/fitnesse-maven-classpath
 or
 
 view the live examples at
-https://github.com/jguglielmi/OASIS-Maven
+https://github.com/jguglielmi/OASIS

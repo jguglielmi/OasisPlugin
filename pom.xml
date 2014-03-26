@@ -40,6 +40,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.fitnesse</groupId>
+			<artifactId>fitnesse</artifactId>
+			<version>20131110</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.sikuli</groupId>
 			<artifactId>sikuli-slides-api</artifactId>
 			<version>1.4.0</version>

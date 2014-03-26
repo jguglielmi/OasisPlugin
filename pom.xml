@@ -73,9 +73,9 @@
 		<dependency>
 			<groupId>synthuse</groupId>
 			<artifactId>synthuse</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.7</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/synthuse-1.0.6.jar</systemPath>
+			<systemPath>${project.basedir}/lib/synthuse-1.0.7.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>sikuli-java</groupId>

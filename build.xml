@@ -7,7 +7,7 @@
   <property name="dist" location="dist"/>
   <property name="jarname" value="OasisPlugin.jar"/>
   
-  <target name="bootstrap" description="Installs apche ivy">
+  <target name="bootstrap" description="Installs apache ivy">
     <mkdir dir="${user.home}/.ant/lib"/>
     <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
   </target>

@@ -185,7 +185,7 @@ display: inline;
       <button id="sikuliBtnCapture">Capture</button><button id="sikuliSelectCapture">Select</button>
     </div>
     <button id="toolBtnSynthuse">Synthuse</button>
-    <button id="fileReaderBtnFile">Select File</button><button id="fileSelectTable">Select</button>
+    <button id="fileReadBtnFile">Select File</button><button id="fileSelectTable">Select</button>
   </div>
       </div>
   </div>

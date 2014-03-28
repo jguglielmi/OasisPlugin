@@ -11,6 +11,7 @@ public class PluginLoader {
     public static void registerResponders(ResponderFactory factory) {
     	//factory.addResponder("custom1", WikiPageResponder.class);
     	//factory.addResponder("custom2", EditResponder.class);
+    	
     	System.out.println("************ registerResponders ************");
     	//System.out.println("port: " + fitnesse.testutil.FitNesseUtil.PORT + "");
     	//System.out.println(fitnesse.testutil.FitNesseUtil.makeTestContext().getRootPagePath());
@@ -28,7 +29,7 @@ public class PluginLoader {
     }
 
     public static void registerSymbolTypes(SymbolProvider provider) {
-	    provider.add(new OasisSymbolType());
+    	provider.add(new OasisSymbolType());
     	//provider.add(new Today());
     	//System.out.println("************ registerSymbolTypes ************");
     }

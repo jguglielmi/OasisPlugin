@@ -1,6 +1,7 @@
 OasisPlugin
 
 This is a plugin for Fitnesse to allow extra automation functionality directly in the wiki edit page. Read below for more information about OASIS.
+Pre-requisites: The user needs to download and setup Java, Maven, Ant, Ivy, and WGet (located in lib directory, please add to classpath)
 
 
 OASIS

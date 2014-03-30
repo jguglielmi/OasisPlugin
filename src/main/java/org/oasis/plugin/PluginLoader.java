@@ -16,7 +16,6 @@ public class PluginLoader {
     	//System.out.println(fitnesse.testutil.FitNesseUtil.makeTestContext().getRootPagePath());
     	GlobalEnv.IS_FITNESSE_PROC.set(true);
     	FitnesseCustomStartup.addCustomFitnesseStartup(GlobalEnv.getFitnessePort(), new FitnesseCustomStartup.fitnesseEvents() {
-			@Override
 			public void startup(int port) {
 				System.out.println("#### port: " + port);
 		        // Add to FitNesse to initialize some sikuli stuff

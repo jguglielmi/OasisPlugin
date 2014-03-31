@@ -186,6 +186,8 @@ display: inline;
     </div>
     <button id="toolBtnSynthuse">Synthuse</button>
     <button id="fileReadBtnFile">Select File</button><button id="fileSelectTable">Select</button>
+	<button id="generateHTMLButton">Save HTML Report</button>
+	<button id="generateLatestHTMLButton">Save Latest HTML Report</button>
   </div>
       </div>
   </div>
@@ -382,6 +384,7 @@ display: inline;
 <script src="/files/fitnesse/javascript/sikuliButtons.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/synthuseButtons.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/fileReaderButtons.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/generateHTMLButtons.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(function () {

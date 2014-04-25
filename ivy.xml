@@ -11,6 +11,6 @@
 		<dependency org="junit" name="junit" rev="4.6" conf=""/>
 		<dependency org="org.mockito" name="mockito-all" rev="1.8.5" conf=""/>
 		<dependency org="org.apache.maven" name="maven-embedder" rev="3.0.4" conf=""/>
-		<dependency org="org.fitnesse" name="fitnesse" rev="20131110" conf=""/>
+<!--		<dependency org="org.fitnesse" name="fitnesse" rev="20131110" conf=""/> -->
     </dependencies>
 </ivy-module>

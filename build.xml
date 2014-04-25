@@ -1,7 +1,8 @@
 <project name="OasisPlugin" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   <description> Simple build file for OasisPlugin </description>
   <!-- set global properties for this build -->
-  <property name="src" location="src"/>
+  <property name="src" location="src/main/java"/>
+  <property name="resources" location="src/main/resources"/>  
   <property name="build" location="build"/>
   <property name="lib" location="lib"/>
   <property name="dist" location="dist"/>
@@ -38,13 +39,14 @@
   
   <target name="compile" depends="init" description="compile the source including jars from lib directory" >
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false" source="1.6" target="1.6">
       <classpath>
         <pathelement path="${classpath}"/>
         <fileset dir="${lib}">
           <include name="**/*.jar"/>
         </fileset>
       </classpath>
+      <compilerarg value="-Xlint"/>
     </javac>
   </target>
 
@@ -54,11 +56,11 @@
     <!-- Put everything from ${build} and ${lib} into the output .jar file -->
     <jar jarfile="${dist}/${jarname}" basedir="${build}">
 	  <!-- includes images -->
-      <fileset dir="${src}"><include name="**/*.png" /></fileset>
-      <fileset dir="${src}"><include name="**/*.gif" /></fileset>
-      <fileset dir="${src}"><include name="**/*.js" /></fileset>
-      <fileset dir="${src}"><include name="**/*.css" /></fileset>
-      <fileset dir="${src}"><include name="**/*.vm" /></fileset>
+      <fileset dir="${resources}"><include name="**/*.png" /></fileset>
+      <fileset dir="${resources}"><include name="**/*.gif" /></fileset>
+      <fileset dir="${resources}"><include name="**/*.js" /></fileset>
+      <fileset dir="${resources}"><include name="**/*.css" /></fileset>
+      <fileset dir="${resources}"><include name="**/*.vm" /></fileset>
       <manifest>
         <attribute name="Class-Path" value="${mf.classpath}"/>
       </manifest>

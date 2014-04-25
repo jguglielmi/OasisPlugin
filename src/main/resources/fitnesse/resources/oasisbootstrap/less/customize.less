@@ -1,0 +1,316 @@
+body {
+  padding-top: 86px;
+}
+
+header,
+article,
+footer {
+  margin: 0 40px;
+}
+
+footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .well;
+}
+
+table {
+  .table;
+  .table-bordered;
+  .table-condensed;
+  width: auto;
+}
+
+label {
+    display: inline-block;
+}
+
+.navbar-fixed-top .navbar-inner {
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.breadcrumb {
+  padding: 8px 40px;
+  margin: 0;
+  #gradient > .vertical-three-colors(#ffffff, #ffffff, 70%, rgba(255,255,255,0.0));
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.breadcrumb li+li:before {
+    content: "/ ";
+    color: #ccc;
+}
+
+button,
+a.button,
+input[type="button"] {
+  .btn;
+  margin-bottom: 9px;
+}
+
+input[type="submit"] {
+  .btn;
+  .btn-primary;
+  margin-bottom: 9px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0 4px 0 0;
+}
+
+// Reset .divider class to something we can work with
+.dropdown-menu .divider {
+  *width: 100%;
+  height: auto;
+  margin: 0;
+  background-color: transparent;
+  border-bottom: none;
+  border-top: 1px solid #e5e5e5;
+}
+
+.validationerror {
+  margin-left: 145px;
+}
+
+/** Rich text editor style */
+.editor-toggle label {
+  .radio;
+  .radio-inline;
+}
+
+.editor-toggle input {
+    margin-left: -18px;
+}
+
+/** Collapsable section */
+.collapsible {
+  background: transparent;
+  margin: 5px 0px 5px 0px;
+  border: 1px solid #e5e5e5;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.collapsible > div {
+  margin-left: 16px;
+}
+
+.collapsible.closed > div {
+  display: none;
+}
+
+.collapsible.invisible {
+  display: none;
+}
+
+.collapsible p.title {
+  color: #000;
+  font-style: italic;
+  margin: 0;
+  padding: 0 0 0 18px;
+}
+
+.collapsible p.title {
+  background: url(../img/minus-sign.png) no-repeat scroll 0 2px transparent;
+}
+
+.collapsible.closed p.title {
+  background: url(../img/plus-sign.png) no-repeat scroll 0 2px transparent;
+}
+
+.collapsible > ul {
+  float: right;
+  margin: 0;
+}
+
+.collapsible > ul li {
+  display: inline;
+  padding: 0 .5em;
+  border-left: 1px solid #e5e5e5;
+}
+
+tr.scenario > td:first-child {
+  background-image: url("../img/minus-sign.png");
+  background-position: 2px 7px;
+}
+
+tr.scenario.closed > td:first-child {
+  background-image: url("../img/plus-sign.png");
+  padding-left: 18px;
+}
+
+.pass,
+span.pass * {
+  background-color: darken(@alert-success-bg, 10%);
+  color: darken(@alert-success-text, 30%);
+}
+span.error,
+span.error *{
+  background-position: 0, -2px;
+  padding-right: 3px;
+  border: 1px solid darken(@brand-warning, 30%);
+  border-radius: 4px;
+}
+.ignore,
+span.ignore * {
+  background-color: darken(@alert-info-bg, 10%);
+  color: darken(@alert-info-text, 30%);
+}
+#test-action {
+  .test-button(@bgColor) {
+    .label;
+    background-color: @bgColor;
+    display: block;
+    float: left;
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 9px 6px;
+  }
+  .output,
+  .ok {
+    .test-button(@brand-success);
+  }
+  .error,
+  .stop {
+    .test-button(@brand-danger);
+  }
+}
+
+.progress-variant(@background) {
+  .progress-bar-variant(@background);
+//  padding: 0 0 0 18px;
+  color: @progress-bar-color;
+}
+
+#progressBar {
+  .progress-bar;
+  height: auto;
+  &.pass {
+    .progress-bar-success;
+  }
+  &.fail {
+    .progress-bar-danger;
+  }
+  &.error {
+    .progress-bar-warning;
+  }
+}
+
+#test-summary {
+  .progress;
+  height: auto;
+  &.pass {
+    .progress-variant(@progress-bar-success-bg);
+  }
+  &.fail {
+    .progress-variant(@progress-bar-danger-bg);
+  }
+  &.error {
+    .progress-variant(@progress-bar-warning-bg);
+  }
+}
+
+.test-summary-item(@background) {
+  .label;
+  .label-variant(@background);
+  padding-left: 18px;
+}
+
+#test-summaries {
+  .pass {
+    .test-summary-item(@label-success-bg);
+  }
+  .fail {
+    .test-summary-item(@label-danger-bg);
+  }
+  .error {
+    .test-summary-item(@label-warning-bg);
+  }
+  .ignore {
+    .test-summary-item(@label-info-bg);
+  }
+}
+
+#error-nav {
+  margin-top: 8px;
+}
+#error-nav button {
+  .btn-sm;
+  .btn-danger;
+  font-size: 150%;
+  padding: 6px 12px;
+  line-height: 1;
+  margin: 0 0 3px 0
+}
+.error-nav-hidden{
+    display: none;
+}
+
+.propertiesPage form,
+.searchForm form,
+.refactorForm form,
+.deletePage form {
+  .well;
+  .well-sm;
+}
+
+fieldset {
+  margin: 0 0 0.5em 0;
+}
+
+// Specific pages:
+
+
+.editPage .textarea-toolbar,
+.editPage .wysiwyg-toolbar {
+    margin-left: 4px;
+}
+
+.editPage textarea#pageContent {
+    border-left: none;
+    border-right: none;
+    padding: 4px;
+}
+.editPage iframe.wysiwyg {
+    border-left: none;
+    border-right: none;
+}
+
+.editPage .textarea-toolbar input[type="button"] {
+  .btn-default;
+  .btn-xs;
+  margin: 3px 0 6px 0;
+}
+
+.tagsinput .tag {
+    .badge;
+    background-color: @brand-info;
+    border: none;
+}
+
+.tagsinput .tag a {
+    color: @alert-danger-text;
+}
+
+body.editing {
+    padding: 0 40px;
+}
+
+.editPage #save_buttons {
+  margin-left: @padding-base-horizontal;
+}
+
+#tt-wrap-text {
+  font-weight: normal;
+}
+
+.wysiwyg-toolbar li :link, .wysiwyg-toolbar li :visited {
+  .box-sizing(content-box);
+}
+
+@media print {
+  nav { display: none; }
+}

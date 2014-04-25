@@ -1,0 +1,19 @@
+## The menu is only shown after the page executed.
+<div class="hidden">
+#parse( "menu.vm" )
+</div>
+<script type="text/javascript">//<!--
+ $(function() {
+   $('nav .hidden').removeClass('hidden');
+ });
+//--></script>
+
+<span id="test-action"></span>
+
+## The error navigator is also hidden until page is complete.
+<div id="error-nav" class="error-nav-hidden navbar-right">
+ Failure Navigator
+ <button id="error-nav-prev">&laquo;</button>
+ <input id="error-nav-text" type="text" size="3"> of <span id="error-nav-max"></span>
+ <button id="error-nav-next">&raquo;</button>
+</div>

@@ -59,10 +59,6 @@
     margin-left: 40px;
 }
 
-.oasisEditPage textarea#pageContent {
-    border-left: none;
-    border-right: none;
-}
 .oasisEditPage iframe.wysiwyg {
     border-left: none;
     border-right: none;
@@ -371,7 +367,7 @@ display: inline;
 
  
  <fieldset id="editor">
-  <textarea class="wikitext no_wrap" id="pageContent" name="pageContent" wrap="off">$pageContent</textarea>
+  <textarea class="wikitext no_wrap" id="pageContent" name="pageContent" wrap="off" style="height: 370px;">$pageContent</textarea>
  </fieldset>
 
  <fieldset id="save_buttons">

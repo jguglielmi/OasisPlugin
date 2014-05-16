@@ -36,13 +36,13 @@
 		<dependency>
 			<groupId>org.fitnesse</groupId>
 			<artifactId>fitnesse</artifactId>
-			<version>20140201</version>
+			<version>20140418</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.fitnesse</groupId>
 			<artifactId>fitnesse</artifactId>
-			<version>20131110</version>
+			<version>20140418</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

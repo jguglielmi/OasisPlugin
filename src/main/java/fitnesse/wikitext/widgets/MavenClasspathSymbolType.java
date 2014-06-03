@@ -84,7 +84,7 @@ public class MavenClasspathSymbolType extends SymbolType implements Rule, Transl
         try {
             return getClasspathElements(getParsedSymbol(translator, symbol));
         } catch (MavenClasspathExtractionException e) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 	

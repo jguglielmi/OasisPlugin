@@ -83,25 +83,25 @@ public class SqlResponder implements SecureResponder{
                 driver = "oracle.jdbc.driver.OracleDriver";
             }
             parentFrame = createOnTopJFrameParent();
-            url = url + (String)JOptionPane.showInputDialog(parentFrame, "Please enter the database URL:", "");
+            url = url + JOptionPane.showInputDialog(parentFrame, "Please enter the database URL:", "");
             parentFrame.dispose();
         }
 
         public void setUserName(){
             parentFrame = createOnTopJFrameParent();
-            username = (String)JOptionPane.showInputDialog(parentFrame, "Please enter the username:", "");
+            username = JOptionPane.showInputDialog(parentFrame, "Please enter the username:", "");
             parentFrame.dispose();
         }
 
         public void setPassword(){
             parentFrame = createOnTopJFrameParent();
-            password = (String)JOptionPane.showInputDialog(parentFrame, "Please enter the password:", "");
+            password = JOptionPane.showInputDialog(parentFrame, "Please enter the password:", "");
             parentFrame.dispose();
         }
 
         public void setQuery(){
             parentFrame = createOnTopJFrameParent();
-            query = (String)JOptionPane.showInputDialog(parentFrame, "Please enter the query:", "");
+            query = JOptionPane.showInputDialog(parentFrame, "Please enter the query:", "");
             parentFrame.dispose();
         }
        
@@ -236,7 +236,7 @@ public class SqlResponder implements SecureResponder{
         };
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-        frame.setSize(frame.WIDTH+300, 130);
+        frame.setSize(300, 130);
         frame.setVisible(true);
         return frame;
     }

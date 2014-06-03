@@ -51,7 +51,7 @@ public class ReportGenerateResponder implements SecureResponder {
 		}
 		public void setPage(){
 			parentFrame = createOnTopJFrameParent();
-			resultsPageName = (String)JOptionPane.showInputDialog(parentFrame, "Please enter the page name:", "");
+			resultsPageName = JOptionPane.showInputDialog(parentFrame, "Please enter the page name:", "");
 			parentFrame.dispose();
 		} 
 	}

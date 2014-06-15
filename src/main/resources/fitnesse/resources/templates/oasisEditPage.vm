@@ -182,8 +182,10 @@ display: inline;
     </div>
     <button id="toolBtnSynthuse">Synthuse</button>
     <button id="fileReadBtnFile">Select File</button><button id="fileSelectTable">Select</button>
+    <!-- This generate report has been moved to NavBar menu in oasisbootstrap theme
 	<button id="generateHTMLButton">Save HTML Report</button>
 	<button id="generateLatestHTMLButton">Save Latest HTML Report</button>
+	-->
   </div>
       </div>
   </div>

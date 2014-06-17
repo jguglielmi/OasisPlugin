@@ -28,6 +28,7 @@
   <target name="resolve" depends="init" description="--> retreive dependencies with ivy">
     <ivy:retrieve pattern="${lib}/[artifact]-[revision].[ext]" conf="*"/>
     <ivy:report todir="${build}"/>
+    <get dest="${lib}/synthuse.jar" src="https://github.com/Synthuse/synthuse-src/releases/download/v1.2.2/synthuse.jar"/>	
   </target>
   
   <target name="clean" description="clean up" >

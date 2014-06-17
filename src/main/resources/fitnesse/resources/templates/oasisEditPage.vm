@@ -50,36 +50,12 @@
 <script src="/files/fitnesse/javascript/jquery-ui-1.10.3.min.js"></script>
 <style>
 
-.oasisEditPage fieldset {
-    margin-left: 40px;
-    margin-right: 40px;
-}
-.oasisEditPage .textarea-toolbar,
-.oasisEditPage .wysiwyg-toolbar {
-    margin-left: 40px;
-}
-
-.oasisEditPage iframe.wysiwyg {
-    border-left: none;
-    border-right: none;
-}
-.oasisEditPage #pagename,
-.oasisEditPage #helptext {
-    margin-bottom: 0.5em;
-    .input-xxlarge;
-}
-
-/** Edit page **/
 .oasisEditPage {
     overflow: hidden;
 }
 
 .oasisEditPage article {
     margin: 0;
-}
-
-.oasisEditPage #editor {
-    margin: 8px 0 0 0;
 }
 
 .oasisEditPage #editor label {
@@ -92,14 +68,13 @@
 .oasisEditPage #pagename,
 .oasisEditPage #helptext {
 	width: 55em;
-	margin-bottom: 0.5em;
-}
-.oasisEditPage #pagetypes {
-	margin: 0 0 0.5em 7em;
 }
 .oasisEditPage #pagetypes label {
 	display: inline;
 	float: none;
+}
+.oasisEditPage #pagetypes label:first-child {
+    margin-left: 145px;
 }
 .oasisEditPage textarea, .oasisEditPage iframe {
 	display: block;
@@ -115,8 +90,7 @@
 }
 .oasisEditPage #save_buttons {
     bottom: 0;
-    margin-top: 16px;
-    margin-bottom: 7px; /* buttons have 9px bottom padding */
+    margin-top: 9px;
     position: fixed;
 }
 
@@ -369,7 +343,7 @@ display: inline;
 
  
  <fieldset id="editor">
-  <textarea class="wikitext no_wrap" id="pageContent" name="pageContent" wrap="off" style="height: 370px;">$pageContent</textarea>
+  <textarea class="wikitext no_wrap" id="pageContent" name="pageContent" wrap="off">$pageContent</textarea>
  </fieldset>
 
  <fieldset id="save_buttons">
@@ -377,13 +351,13 @@ display: inline;
   <a class="button" href="#if($!redirect)$redirect#else$resource#end">Cancel</a>
  </fieldset>
 </form>
-<script src="/files/fitnesse/wysiwyg/wysiwyg.js" type="text/javascript"></script>
-<script src="/files/fitnesse/javascript/jquery.tagsinput.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/sikuliButtons.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/synthuseButtons.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/fileReaderButtons.js" type="text/javascript"></script>
 <script src="/files/fitnesse/javascript/generateHTMLButtons.js" type="text/javascript"></script>
 
+<script src="/files/fitnesse/wysiwyg/wysiwyg.js" type="text/javascript"></script>
+<script src="/files/fitnesse/javascript/jquery.tagsinput.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function () {
     
@@ -420,15 +394,12 @@ $(function () {
     };
   }
 
-  var rte = $('#editor iframe');
+  var rte = $('#editor .wysiwyg');
   var textarea = $('#editor textarea');
-  //var textarea = $("#pageContent");
   $(window).resize(function () {
     var h = $('#save_buttons').position().top;
-    rte.height(h - rte.position().top - 1);
-    //textarea.height(h - textarea.position().top - 1);
-    //$("#pageContent").height( $("#pageContent")[0].scrollHeight );
-    //$("#pageContent").width( $("#pageContent")[0].scrollWidth );
+    rte.height(h - rte.position().top - 6);
+    textarea.height(h - textarea.position().top - 6);
   }).resize();
 
   /* Tags */

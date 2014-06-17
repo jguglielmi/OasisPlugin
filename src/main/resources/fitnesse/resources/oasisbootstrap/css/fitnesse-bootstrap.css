@@ -5680,6 +5680,63 @@ fieldset[disabled] .editPage .textarea-toolbar input[type="button"].active {
   color: #ffffff;
   background-color: #333333;
 }
+
+.oasisEditPage #editor {
+  margin: 0 40px;
+}
+.oasisEditPage .textarea-toolbar,
+.oasisEditPage .wysiwyg-toolbar {
+  margin-left: 4px;
+}
+.oasisEditPage textarea#pageContent {
+  padding: 4px;
+}
+.oasisEditPage .textarea-toolbar input[type="button"] {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  margin: 3px 0 6px 0;
+}
+.oasisEditPage .textarea-toolbar input[type="button"]:hover,
+.oasisEditPage .textarea-toolbar input[type="button"]:focus,
+.oasisEditPage .textarea-toolbar input[type="button"]:active,
+.oasisEditPage .textarea-toolbar input[type="button"].active,
+.open .dropdown-toggle.oasisEditPage .textarea-toolbar input[type="button"] {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.oasisEditPage .textarea-toolbar input[type="button"]:active,
+.oasisEditPage .textarea-toolbar input[type="button"].active,
+.open .dropdown-toggle.oasisEditPage .textarea-toolbar input[type="button"] {
+  background-image: none;
+}
+.oasisEditPage .textarea-toolbar input[type="button"].disabled,
+.oasisEditPage .textarea-toolbar input[type="button"][disabled],
+fieldset[disabled] .oasisEditPage .textarea-toolbar input[type="button"],
+.oasisEditPage .textarea-toolbar input[type="button"].disabled:hover,
+.oasisEditPage .textarea-toolbar input[type="button"][disabled]:hover,
+fieldset[disabled] .oasisEditPage .textarea-toolbar input[type="button"]:hover,
+.oasisEditPage .textarea-toolbar input[type="button"].disabled:focus,
+.oasisEditPage .textarea-toolbar input[type="button"][disabled]:focus,
+fieldset[disabled] .oasisEditPage .textarea-toolbar input[type="button"]:focus,
+.oasisEditPage .textarea-toolbar input[type="button"].disabled:active,
+.oasisEditPage .textarea-toolbar input[type="button"][disabled]:active,
+fieldset[disabled] .oasisEditPage .textarea-toolbar input[type="button"]:active,
+.oasisEditPage .textarea-toolbar input[type="button"].disabled.active,
+.oasisEditPage .textarea-toolbar input[type="button"][disabled].active,
+fieldset[disabled] .oasisEditPage .textarea-toolbar input[type="button"].active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.oasisEditPage .textarea-toolbar input[type="button"] .badge {
+  color: #ffffff;
+  background-color: #333333;
+}
 .tagsinput .tag {
   display: inline-block;
   min-width: 10px;
@@ -5711,6 +5768,9 @@ fieldset[disabled] .editPage .textarea-toolbar input[type="button"].active {
   color: #a94442;
 }
 .editPage #save_buttons {
+  margin: 0 40px;
+}
+.oasisEditPage #save_buttons {
   margin: 0 40px;
 }
 #tt-wrap-text {

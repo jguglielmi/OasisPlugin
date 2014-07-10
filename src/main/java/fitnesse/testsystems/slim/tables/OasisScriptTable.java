@@ -22,9 +22,9 @@ package fitnesse.testsystems.slim.tables;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import fitnesse.slim.converters.BooleanConverter;
 import fitnesse.slim.converters.VoidConverter;
@@ -182,6 +182,44 @@ protected List<SlimAssertion> repeat(int row) throws SyntaxError {
 	return results;
 }
 
+private void fixScenarioTableRepeat(Table scenarioTable, String[] args, Set<String> inputs)
+{
+   String[] inputArray = new String[args.length];
+   inputs.toArray(inputArray);
+   //for (int i = 0 ; i < args.length ; i ++)
+      //System.out.println("scenario args " + args[i] + " " + inputArray[i]);
+    
+   for (int r = 0 ; r < scenarioTable.getRowCount() ; r++)
+   {
+	   //System.out.println("scenario contents " + scenarioTable.getCellContents(0, r));
+	   if (scenarioTable.getCellContents(0, r).toLowerCase().equals("repeat")) {
+		   String repeats = scenarioTable.getCellContents(scenarioTable.getColumnCountInRow(r)-1, r);
+		   if (repeats.contains("@")) // replace with input
+		   {
+			   //repeats = "1";
+			   for (int i = 0 ; i < args.length ; i ++)
+			   {
+				   if (inputArray[i].equals(repeats.replaceAll("@", "")))
+						   repeats = args[i];
+			   }
+			   //System.out.println("scenario args " + args[i] + " " + inputArray[i]);
+		   }
+		   int repeatCount = Integer.parseInt(repeats);
+		   //System.out.println("repeats " + repeatCount);
+		   scenarioTable.substitute(0, r, "note"); // substitute note for repeat since scenario table doesn't understand the "repeat" command
+		   
+		   List <String> repeatRowList = new ArrayList<String>();
+		   for (int c = 1 ; c < scenarioTable.getColumnCountInRow(r) - 1 ; c ++)
+			   repeatRowList.add(scenarioTable.getCellContents(c, r));
+		   
+		   for (int x = 0 ; x < repeatCount ; x ++) //append repeated rows to scenario table
+		   {
+			   scenarioTable.addRow(repeatRowList);
+		   }
+	   }
+   }
+}
+
 @SuppressWarnings({ "unchecked", "null" })
 private List<SlimAssertion> assertionsFromScenario(int startingCol, int endingCol, int row) throws SyntaxError {
  //int lastCol = table.getColumnCountInRow(row) - 1;
@@ -189,7 +227,10 @@ private List<SlimAssertion> assertionsFromScenario(int startingCol, int endingCo
  ScenarioTable scenario = getTestContext().getScenario(Disgracer.disgraceClassName(actionName));
  List<SlimAssertion> assertions = new ArrayList<SlimAssertion>();
  if (scenario != null) {
+   //String firstNameCell = scenario.getTable().getCellContents(startingCol + 0, row);
+   
    String[] args = getArgumentsStartingAt(startingCol + 1, endingCol, row, assertions);
+   fixScenarioTableRepeat(scenario.getTable(), args, scenario.getInputs());
    /*
    Map<String, String> scenarioArguments = new HashMap<String, String>();
    for (int i = 0; (i < scenario.getInputs().size()) && (i < args.length); i++)
@@ -219,7 +260,6 @@ protected List<SlimAssertion> actionAndAssign(String symbolName, int row) {
    String[] args = getArgumentsStartingAt(1 + 1, lastCol, row, assertions);
    assertions.add(makeAssertion(callAndAssign(symbolName, getTableType() + "Actor", actionName, args),
            new SymbolAssignmentExpectation(symbolName, 0, row)));
-
  }
  return assertions;
 }
@@ -243,10 +283,18 @@ private List<SlimAssertion> assertionsFromScenario(int row) throws SyntaxError {
  ScenarioTable scenario = getTestContext().getScenario(Disgracer.disgraceClassName(actionName));
  List<SlimAssertion> assertions = new ArrayList<SlimAssertion>();
  if (scenario != null) {
+   //System.out.println("assertionsFromScenario1 (" + row + ") " + scenario.getName());
    scenario.setCustomComparatorRegistry(customComparatorRegistry);
    String[] args = getArgumentsStartingAt(1, lastCol, row, assertions);
+   //System.out.println("args (" + args.length + ") " + args[0]);
+   //System.out.println("assertions (" + assertions.size() + ") ");
+   Table scenarioTable = scenario.getTable();
+   fixScenarioTableRepeat(scenarioTable, args, scenario.getInputs());
    assertions.addAll(scenario.call(args, this, row));
+   //for (int i = 0 ; i < assertions.size() ; i ++)
+   //  System.out.println("assertions (" + i + ") "+ assertions.get(i).getInstruction().toString() + " & " + assertions.get(i).getExpectation());
  } else if (lastCol == 0) {
+	 //System.out.println("assertionsFromScenario2 (" + row + ") " + scenario.getName());
    String firstNameCell = table.getCellContents(0, row);
    for (ScenarioTable s : getScenariosWithMostArgumentsFirst()) {
      s.setCustomComparatorRegistry(customComparatorRegistry);

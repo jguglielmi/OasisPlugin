@@ -16,7 +16,9 @@
  <fieldset>
   <label for="pagename">Page name:</label><input type="text" id="pagename" name="pageName" value="" class="wikiword" />
  </fieldset>
- #if( $!pageType )
+  #if($!pageTemplate)
+ <input type="hidden" name="pageTemplate" value="$pageTemplate"/>
+ #elseif( $!pageType )
  <input type="hidden" name="pageType" value="$pageType"/>
  #else
  <fieldset id="pagetypes">
@@ -35,12 +37,12 @@
  <fieldset>
   <label for="suites">Tags:</label><input type="text" id="suites" title="Separate tags by a comma" name="suites" value="$!suites" />
  </fieldset>
-
- <div id="backingData" class="hidden">
+ 
+  <div id="backingData" class="hidden">
   <select id="templateMap">
    <option value=""></option>
    #foreach ($templateEntry in $templateMap.entrySet())
-   <option value="$templateEntry.key">$templateEntry.value</option>
+   <option value="$templateEntry.value">$templateEntry.key</option>
    #end
   </select>
 

@@ -25,6 +25,17 @@
   <script src="${contextRoot}files/fitnesse/javascript/fitnesse.js" type="text/javascript"></script>
 
   <script src="${contextRoot}files/fitnesse/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $("td img").each(function(){
+		var imgsrc = $(this).attr("src");
+		if (imgsrc.indexOf("sik&img") >= 0) {
+			$(this).attr("title", imgsrc.substring(imgsrc.indexOf("sik&img") + 8));
+		}
+	});
+  });
+  </script>
 
  </head>
  <body#if( $bodyClass ) class="$bodyClass"#end>

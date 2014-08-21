@@ -84,10 +84,15 @@ public class Util {
 		int port = 8000;
 		try
 		{
-			if (pomXmlStr == "")
-				pomXmlStr = fileToString(pomXmlFile);
-			String val = evaluateXpathGetValue(pomXmlStr, "//*[local-name()='fitnesse.port']/text()");
-			port = Integer.parseInt(val);
+			if (new File(pomXmlFile).exists())
+			{
+				if (pomXmlStr == "")
+					pomXmlStr = fileToString(pomXmlFile);
+				String val = evaluateXpathGetValue(pomXmlStr, "//*[local-name()='fitnesse.port']/text()");
+				port = Integer.parseInt(val);
+			}
+			//else
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

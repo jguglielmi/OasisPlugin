@@ -202,8 +202,11 @@ display: inline;
     <li><a id="sikuliWaitClick" href="#">WaitClick</a></li>
     <li><a id="sikuliRightClick" href="#">RightClick</a></li>
     <li><a id="sikuliDoubleClick" href="#">DoubleClick</a></li>
+    <li><a id="sikuliMiddleClick" href="#">MiddleClick</a></li>
     <li><a id="sikuliHover" href="#">Hover</a></li>
     <li><a id="sikuliDragDrop" href="#">DragDrop</a></li>
+    <li><a id="sikuliWheelDown" href="#">WheelDown</a></li>
+    <li><a id="sikuliWheelUp" href="#">WheelUp</a></li>
   </ul>
   <ul id="menuAdjustments" style="display: none;">
   </ul>

@@ -166,6 +166,27 @@ $(function() {
 			}
 		});
 	});
+	$('#sikuliMiddleClick').click(function () {
+		$.get("?sik&capture", function( data ) {
+			if (data) {
+				outputText('| middleClick | !-<img src="' + data + '" />-! |\n');
+			}
+		});
+	});
+	$('#sikuliWheelDown').click(function () {
+		$.get("?sik&capture", function( data ) {
+			if (data) {
+				outputText('| wheelDown | !-<img src="' + data + '" />-! |\n');
+			}
+		});
+	});
+	$('#sikuliWheelUp').click(function () {
+		$.get("?sik&capture", function( data ) {
+			if (data) {
+				outputText('| wheelUp | !-<img src="' + data + '" />-! |\n');
+			}
+		});
+	});
 	$('#sikuliBtnWait').click(function () {
 		$.get("?sik&capture", function( data ) {
 			if (data) {

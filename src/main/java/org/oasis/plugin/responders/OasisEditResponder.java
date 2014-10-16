@@ -11,7 +11,6 @@ import fitnesse.http.Response;
 import fitnesse.http.SimpleResponse;
 import fitnesse.html.template.HtmlPage;
 import fitnesse.html.template.PageTitle;
-import fitnesse.responders.editing.NewPageResponder;
 import fitnesse.responders.editing.SaveRecorder;
 import fitnesse.responders.editing.TemplateUtil;
 import fitnesse.wiki.MockingPageCrawler;
@@ -86,10 +85,8 @@ public class OasisEditResponder implements SecureResponder {
     html.setTitle(title + resource);
 
     html.setPageTitle(new PageTitle(title + " Page:", PathParser.parse(resource), pageData.getAttribute(PageData.PropertySUITES)));
-    //html.setMainTemplate("old-editPage");
     html.setMainTemplate("oasisEditPage");
-    
-    makeEditForm(html, resource, firstTimeForNewPage, NewPageResponder.getDefaultContent(context));
+    makeEditForm(html, resource, firstTimeForNewPage, OasisNewPageResponder.getDefaultContent(page));
 
     return html.html();
   }
@@ -112,7 +109,6 @@ public class OasisEditResponder implements SecureResponder {
     html.put(TEMPLATE_MAP, TemplateUtil.getTemplateMap(page));
     html.put("suites", pageData.getAttribute(PageData.PropertySUITES));
     html.put(CONTENT_INPUT_NAME, Utils.escapeHTML(firstTimeForNewPage ? defaultNewPageContent : content));
-
   }
 
   public SecureOperation getSecureOperation() {

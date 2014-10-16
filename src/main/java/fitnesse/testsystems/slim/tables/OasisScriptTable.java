@@ -3,7 +3,7 @@
 
 /*
  
- // For this custom Script table to work we must be able to overwrite current script table in the SlimTableFactory
+ // For this custom Script table to work we must be able to overwrite current script table in the class fitnesse.testsystems.slim.tables.SlimTableFactory
  // And need to add the script table to the plugin.properties file SlimTables=script:fitnesse.testsystems.slim.tables.OasisScriptTable
  
   public void addTableType(String nameOrPrefix, Class<? extends SlimTable> tableClass) {
@@ -277,7 +277,7 @@ protected List<SlimAssertion> action(int row) throws SyntaxError {
  return assertions;
 }
 
-private List<SlimAssertion> assertionsFromScenario(int row) throws SyntaxError {
+protected List<SlimAssertion> assertionsFromScenario(int row) throws SyntaxError {
  int lastCol = table.getColumnCountInRow(row) - 1;
  String actionName = getActionNameStartingAt(0, lastCol, row);
  ScenarioTable scenario = getTestContext().getScenario(Disgracer.disgraceClassName(actionName));

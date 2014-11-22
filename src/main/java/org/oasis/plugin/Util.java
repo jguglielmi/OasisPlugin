@@ -26,6 +26,15 @@ public class Util {
 	public static String pomXmlFile = "./pom.xml";
 	public static String pomXmlStr = "";
 	
+	public static boolean waitForFileToExists(String filename, int waitSeconds) {
+		int totalSeconds = 0;
+		while (new File(filename).exists() == false && totalSeconds < waitSeconds) {
+			++totalSeconds;
+			try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+		}
+		return new File(filename).exists();
+	}
+	
 	public static String fileToString(String filename) {
 		String result = null;
 	    DataInputStream in = null;
@@ -151,6 +160,48 @@ public class Util {
 		}
 		else
 			return val;
+	}
+	
+	public static Process forkJavaProcess(String startPath, String jarFilename, String[] args) throws IOException {
+
+		String sep = System.getProperty("file.separator");
+		String javaBin = "java"; //System.getProperty("java.home")  + sep + "bin" + sep + "java.exe";
+		//System.out.println("javaBin: " + javaBin);
+		List<String> argumentsList = new ArrayList<String>();
+		if (System.getProperty("os.name").startsWith("Win"))
+		{
+			//if using windows use different method of starting java process, which lets it start on top
+			argumentsList.add("cmd.exe");
+			argumentsList.add("/c");
+			String argStr = "";
+			for (String arg : args) {
+				argStr += arg + " ";
+			}
+			argumentsList.add("\"start " + javaBin + " -jar " + jarFilename + " " + argStr + "\"");
+		}
+		else
+		{
+			//for linux, osx and other os
+			argumentsList.add(javaBin);
+			//argumentsList.add("-classpath");
+			//argumentsList.add(getClasspath());
+			argumentsList.add("-jar");
+			argumentsList.add(jarFilename);
+			for (String arg : args) {
+				argumentsList.add(arg);
+			}
+		}
+
+		String printCmd = "";
+		for (String arg : argumentsList) {
+			printCmd += arg + " ";
+		}
+		System.out.println(printCmd);
+		
+		ProcessBuilder processBuilder = new ProcessBuilder(argumentsList.toArray(new String[argumentsList.size()]));
+		processBuilder.redirectErrorStream(true);
+		processBuilder.directory(new File(startPath));
+		return processBuilder.start();
 	}
 
 }

@@ -1,5 +1,5 @@
 //Name: SynthuseResponder
-//Author: Edward Jakubowski ejakubowski@qed-sys.com
+//Author: Edward Jakubowski ejakubowski7@gmail.com
 //Last update: 01/28/2014
 //Description: This responder add's back-end support for the Synthuse library.
 //Requirements: synthuse.jar, and ResponderFactory.java has: addResponder("synth", SynthuseResponder.class);

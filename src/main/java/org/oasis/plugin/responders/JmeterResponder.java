@@ -1,10 +1,14 @@
-//Name: SynthuseResponder
-//Author: Edward Jakubowski ejakubowski@qed-sys.com
-//Last update: 01/28/2014
-//Description: This responder add's back-end support for the Synthuse library.
-//Requirements: synthuse.jar, and ResponderFactory.java has: addResponder("synth", SynthuseResponder.class);
+//Name: JmeterResponder
+//Author: Edward Jakubowski ejakubowski7@gmail.com
+//Last update: 11/22/2014
+//Description: This responder add's back-end support for the JmeterBundle library.
+//Requirements: jmeterbundle.jar, and ResponderFactory.java has: addResponder("jmeter", JmeterResponder.class);
 //Examples:
+//To open Jmeter GUI from a link use the following address:
+// http://localhost:8000/?jmeter&dialog
 //
+//To run a Jmeter JMX project use the following address:
+// http://localhost:8000/?jmeter&jmx=jmeter/SimpleHttpTest1.jmx
 
 
 package org.oasis.plugin.responders;

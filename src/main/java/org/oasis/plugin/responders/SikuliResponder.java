@@ -1,5 +1,5 @@
 // Name: SikuliResponder
-// Author: Edward Jakubowski ejakubowski@qed-sys.com
+// Author: Edward Jakubowski ejakubowski7@gmail.com
 // Last update: 11/07/2013
 // Description: This responder add's back-end support for both capturing and displaying pictures using 
 //              the sikuli-api library.

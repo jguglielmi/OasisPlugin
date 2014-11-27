@@ -1,16 +1,9 @@
 package org.oasis.plugin;
 
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Map;
-
 import org.oasis.plugin.responders.SikuliResponder;
 
 import fitnesse.responders.ResponderFactory;
-import fitnesse.testsystems.slim.HtmlTable;
-import fitnesse.testsystems.slim.tables.ScriptTable;
-import fitnesse.testsystems.slim.tables.SlimTable;
 import fitnesse.testsystems.slim.tables.SlimTableFactory;
 import fitnesse.wikitext.parser.SymbolProvider;
 
@@ -59,6 +52,7 @@ public class PluginLoader {
 
     public static void registerSymbolTypes(SymbolProvider provider) {
 	    provider.add(new OasisSymbolType());
+	    provider.add(new OasisVersionSymbolType());
     	//provider.add(new Today());
     	//System.out.println("************ registerSymbolTypes ************");
     }

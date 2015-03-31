@@ -53,7 +53,7 @@ public class OasisNewPageResponder implements Responder {
     WikiPage parentWikiPage = getParentWikiPage(context, request);
     html.put(OasisEditResponder.TEMPLATE_MAP, TemplateUtil.getTemplateMap(parentWikiPage));
     if (request.hasInput(PAGE_TEMPLATE)) {
-      PageCrawler crawler = context.root.getPageCrawler();
+      PageCrawler crawler = context.getRootPage().getPageCrawler();
       String pageTemplate = (String) request.getInput(PAGE_TEMPLATE);
       WikiPage template = crawler.getPage(PathParser.parse(pageTemplate));
       html.put(OasisEditResponder.CONTENT_INPUT_NAME, template.getData().getContent());
@@ -84,7 +84,7 @@ public class OasisNewPageResponder implements Responder {
     WikiPagePath parentPath = PathParser.parse(request.getResource());
 
     //we need a pageBuilder to get the page from the path. The root has a pageBuilder we can use.
-    PageCrawler crawler = context.root.getPageCrawler();
+    PageCrawler crawler = context.getRootPage().getPageCrawler();
     WikiPage page = crawler.getPage(parentPath);
     return page;
   }

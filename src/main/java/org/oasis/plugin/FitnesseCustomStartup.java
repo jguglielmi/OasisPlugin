@@ -26,7 +26,6 @@ public class FitnesseCustomStartup implements Runnable {
         t.start();
 	}
 
-	@Override
 	public void run() {
 		// loop until port is accessible
 		while(checkPort(fitnessePort)) {

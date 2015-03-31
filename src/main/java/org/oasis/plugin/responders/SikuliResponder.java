@@ -144,12 +144,12 @@ public Response makeResponseForNonExistentPage(FitNesseContext context, Request 
 }
 
 protected Response doMakeResponse(FitNesseContext context, Request request, boolean firstTimeForNewPage) {
- initializeResponder(context.root, request);
+ initializeResponder(context.getRootPage(), request);
 
  final SimpleResponse response = new SimpleResponse();
  String resource = request.getResource();
  WikiPagePath path = PathParser.parse(resource);
- PageCrawler crawler = context.root.getPageCrawler();
+ PageCrawler crawler = context.getRootPage().getPageCrawler();
 
  page = crawler.getPage(path, new MockingPageCrawler());
  pageData = page.getData();
@@ -752,7 +752,6 @@ class ImagePreviewPanel extends JPanel implements PropertyChangeListener, MouseL
 			paintTarget((Graphics2D) g);
 	}
 
-	@Override
 	public void mousePressed(MouseEvent me) {
 		target = convertViewToScreen(me.getPoint());
 		//System.out.println("click: " + me.getPoint() + " -> " + target.toStringShort());
@@ -760,19 +759,15 @@ class ImagePreviewPanel extends JPanel implements PropertyChangeListener, MouseL
 		repaint();
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent me) {
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
 	}
-
-	@Override
+	
 	public void mouseExited(MouseEvent arg0) {
 	}
-
-	@Override
+	
 	public void mouseReleased(MouseEvent arg0) {
 	}
 }

@@ -35,7 +35,7 @@ import fitnesse.testsystems.slim.Table;
 import fitnesse.testsystems.slim.results.SlimTestResult;
 import fitnesse.testsystems.slim.tables.*;
 
-import static util.ListUtility.list;
+import java.util.Arrays;
 
 public class OasisScriptTable extends ScriptTable {
 private static final String SEQUENTIAL_ARGUMENT_PROCESSING_SUFFIX = ";";
@@ -401,7 +401,9 @@ protected List<SlimAssertion> startActor(int row) {
  int classNameColumn = 1;
  String cellContents = table.getCellContents(classNameColumn, row);
  String className = Disgracer.disgraceClassName(cellContents);
- return list(constructInstance(getTableType() + "Actor", className, classNameColumn, row));
+ List<SlimAssertion> actor = new ArrayList<SlimAssertion>();
+actor.add(constructInstance(getTableType() + "Actor", className, classNameColumn, row));
+ return actor;
 }
 
 class ArgumentExtractor {

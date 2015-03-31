@@ -19,7 +19,7 @@ import fitnesse.wiki.PageData;
 import fitnesse.wiki.PathParser;
 import fitnesse.wiki.WikiPage;
 import fitnesse.wiki.WikiPagePath;
-import fitnesse.wikitext.Utils;
+import fitnesse.html.HtmlUtil;
 
 public class OasisEditResponder implements SecureResponder {
   public static final String CONTENT_INPUT_NAME = "pageContent";
@@ -50,12 +50,12 @@ public class OasisEditResponder implements SecureResponder {
   }
 
   protected Response doMakeResponse(FitNesseContext context, Request request, boolean firstTimeForNewPage) {
-    initializeResponder(context.root, request);
+    initializeResponder(context.getRootPage(), request);
 
     SimpleResponse response = new SimpleResponse();
     String resource = request.getResource();
     WikiPagePath path = PathParser.parse(resource);
-    PageCrawler crawler = context.root.getPageCrawler();
+    PageCrawler crawler = context.getRootPage().getPageCrawler();
 
     page = crawler.getPage(path, new MockingPageCrawler());
     pageData = page.getData();
@@ -108,7 +108,7 @@ public class OasisEditResponder implements SecureResponder {
     html.put(HELP_TEXT, pageData.getAttribute(PageData.PropertyHELP));
     html.put(TEMPLATE_MAP, TemplateUtil.getTemplateMap(page));
     html.put("suites", pageData.getAttribute(PageData.PropertySUITES));
-    html.put(CONTENT_INPUT_NAME, Utils.escapeHTML(firstTimeForNewPage ? defaultNewPageContent : content));
+    html.put(CONTENT_INPUT_NAME, HtmlUtil.escapeHTML(firstTimeForNewPage ? defaultNewPageContent : content));
   }
 
   public SecureOperation getSecureOperation() {

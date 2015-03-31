@@ -163,12 +163,12 @@ public class SqlResponder implements SecureResponder{
     }
 
     protected Response doMakeResponse(FitNesseContext context, Request request, boolean firstTimeForNewPage) {
-        initializeResponder(context.root, request);
+        initializeResponder(context.getRootPage(), request);
 
         SimpleResponse response = new SimpleResponse();
         String resource = request.getResource();
         WikiPagePath path = PathParser.parse(resource);
-        PageCrawler crawler = context.root.getPageCrawler();
+        PageCrawler crawler = context.getRootPage().getPageCrawler();
 
         page = crawler.getPage(path, new MockingPageCrawler());
         pageData = page.getData();

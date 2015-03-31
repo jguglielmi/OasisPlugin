@@ -1,6 +1,6 @@
 package org.oasis.plugin;
 
-import util.Maybe;
+import fitnesse.wikitext.parser.Maybe;
 import fitnesse.wikitext.parser.HtmlBuilder;
 import fitnesse.wikitext.parser.Matcher;
 import fitnesse.wikitext.parser.Parser;
@@ -24,10 +24,9 @@ public class OasisVersionSymbolType extends SymbolType implements Rule {
 		return new SymbolProvider(new SymbolType[] {new OasisVersionSymbolType()});
 	}
 
-	@Override
-	public Maybe<Symbol> parse(Symbol current, Parser parser) {
+	public fitnesse.wikitext.parser.Maybe<Symbol> parse(Symbol current, Parser parser) {
 		// TODO Auto-generated method stub
-		return new Maybe<Symbol>(current.add(""));
+		return new fitnesse.wikitext.parser.Maybe<Symbol>(current.add(""));
 	}
 
 }

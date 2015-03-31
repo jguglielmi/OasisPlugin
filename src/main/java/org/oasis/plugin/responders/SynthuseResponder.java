@@ -72,12 +72,12 @@ public Response makeResponseForNonExistentPage(FitNesseContext context, Request 
 }
 
 protected Response doMakeResponse(FitNesseContext context, Request request, boolean firstTimeForNewPage) {
-	initializeResponder(context.root, request);
+	initializeResponder(context.getRootPage(), request);
 	
 	final SimpleResponse response = new SimpleResponse();
 	String resource = request.getResource();
 	WikiPagePath path = PathParser.parse(resource);
-	PageCrawler crawler = context.root.getPageCrawler();
+	PageCrawler crawler = context.getRootPage().getPageCrawler();
 	
 	page = crawler.getPage(path, new MockingPageCrawler());
 	pageData = page.getData();
